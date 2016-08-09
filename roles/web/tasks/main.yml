@@ -1,0 +1,21 @@
+---
+- name: Run the apt package updates
+  apt:
+    update_cache: yes
+    cache_valid_time: 14400
+
+
+- name: Install core apt packages (nginx, python3-pip)
+  apt:
+    pkg: "{{item}}"
+    state: latest
+  with_items:
+    - nginx
+    - python3-pip
+    - mysql-client-5.5
+
+- name: Send in the requirements.txt file.
+  copy:
+    src: requirements.txt
+    dest: /tmp/requirements.txt
+  notify: install pip packages

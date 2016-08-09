@@ -1,0 +1,44 @@
+---
+- name: update the cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 14400
+
+- name: Install mysql-server and other relevant parts
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - python-mysqldb
+    - mysql-server-5.5
+
+- name: Bring over the mysqloverrides file
+  copy:
+    src: mysqloverrides.cnf
+    dest: /etc/mysql/conf.d/mysqloverrides.cnf
+    owner: root
+    group: root
+
+
+- name: Set up the root user for mysql
+  mysql_user:
+    name: root
+    password: rootpassword
+  ignore_errors: yes
+
+- name: Set up the mysql regular user
+  mysql_user:
+    name: vagrant
+    host: "192.168.33.10"
+    password: mypassword
+    priv: "*.*:ALL"
+    state: present
+    login_user: root
+    login_password: rootpassword
+
+- name: Create the database
+  mysql_db:
+    login_user: root
+    login_password: rootpassword
+    name: notesdb
+    state: present

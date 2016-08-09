@@ -1,0 +1,5 @@
+---
+- name: install pip packages
+  pip:
+    executable: pip3
+    requirements: /tmp/requirements.txt
