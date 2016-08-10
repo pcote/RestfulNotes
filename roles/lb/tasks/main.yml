@@ -1,0 +1,11 @@
+---
+- name: Do an apt cache update on the lb server
+  apt:
+    update_cache: yes
+    cache_valid_time: 14400
+
+- name: Install nginx that will do the load balancing for us
+  apt:
+    pkg: nginx
+    state: latest
+
