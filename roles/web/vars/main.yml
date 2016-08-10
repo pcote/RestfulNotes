@@ -1,1 +1,4 @@
 ---
+appname: notesapp
+domain: notesapp.com
+proxyport: 3303
