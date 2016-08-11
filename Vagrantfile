@@ -2,28 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  #config.vm.box = "ubuntu/trusty64"
   config.vm.define "web" do |web|
     web.vm.box = "ubuntu/trusty64"
     web.vm.network "private_network", ip: "192.168.33.10"
     web.vm.provision "ansible" do |ansible|
       ansible.playbook = "web.yml"
-    end
-  end
-
-  config.vm.define "web2" do |web2|
-    web2.vm.box = "ubuntu/trusty64"
-    web2.vm.network "private_network", ip: "192.168.33.9"
-    web2.vm.provision "ansible" do |ansible|
-      ansible.playbook = "web.yml"
-    end
-  end
-
-  config.vm.define "lb" do |lb|
-    lb.vm.box = "ubuntu/trusty64"
-    lb.vm.network "private_network", ip: "192.168.33.8"
-    lb.vm.provision "ansible" do |ansible|
-      ansible.playbook = "lb.yml"
     end
   end
 
