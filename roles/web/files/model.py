@@ -31,6 +31,7 @@ def add_note(title, detail):
     new_note = Note(title=title, detail=detail, last_updated=datetime.now())
     sess.add(new_note)
     sess.commit()
+    return "add_note okay"
 
 
 def delete_note(note_id):
@@ -38,6 +39,7 @@ def delete_note(note_id):
     note = sess.query(Note).filter_by(id=note_id).one()
     sess.delete(note)
     sess.commit()
+    return "delete_note okay"
 
 
 def change_note(note_id, title, detail):
@@ -48,6 +50,7 @@ def change_note(note_id, title, detail):
     note.last_updated = datetime.now()
     sess.add(note)
     sess.commit()
+    return "change_note okay"
 
 
 def get_notes():
