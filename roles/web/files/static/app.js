@@ -6,17 +6,45 @@ $(function(){
             console.log(notes);
             var notesTable = $("#notesTable");
             notesTable.empty();
-            var headerString = "<tr><th>id</th><th>title</th><th>detail</th>";
+            var headerString = "<tr><th>&nbsp;</th><th>id</th><th>title</th><th>detail</th>";
             notesTable.append($(headerString));
 
-            var addRec = function(rec){
-                var cells = "<td>" + rec.id + "</td>";
-                cells = cells + "<td>" + rec.title + "</td>";
-                cells = cells + "<td>" + rec.detail + "</td>";
+            var makeButton = function(id){
+                var buttonAttrs = {
+                    "class": "btn btn-danger"
+                };
 
-                var row = "<tr>" + cells + "</tr>";
-                var rowObject = $(row);
-                notesTable.append(rowObject);
+                var clickHandler = function(evt){
+                    alert("delete click for: " + id);
+                };
+
+                var buttonOb = $("<button></button>", buttonAttrs);
+                buttonOb.click(clickHandler);
+                buttonOb.html("delete");
+                return buttonOb;
+            };
+
+            var addRec = function(rec){
+                var row = $("<tr></tr>");
+
+                var deleteCell = $("<td></td>");
+                var buttonObj = makeButton(rec.id);
+                deleteCell.append(buttonObj);
+                row.append(deleteCell);
+
+                var idCell = $("<td></td>");
+                idCell.html(rec.id);
+                row.append(idCell);
+
+                var titleCell = $("<td></td>");
+                titleCell.html(rec.title);
+                row.append(titleCell);
+
+                var detailCell = $("<td></td>");
+                detailCell.html(rec.detail);
+                row.append(detailCell);
+
+                notesTable.append(row);
             };
 
             notes.forEach(addRec);
