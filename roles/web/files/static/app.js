@@ -32,16 +32,13 @@ $(function(){
                 deleteCell.append(buttonObj);
                 row.append(deleteCell);
 
-                var idCell = $("<td></td>");
-                idCell.html(rec.id);
+                var idCell = $("<td></td>").html(rec.id);
                 row.append(idCell);
 
-                var titleCell = $("<td></td>");
-                titleCell.html(rec.title);
+                var titleCell = $("<td></td>").html(rec.title);
                 row.append(titleCell);
 
-                var detailCell = $("<td></td>");
-                detailCell.html(rec.detail);
+                var detailCell = $("<td></td>").html(rec.detail);
                 row.append(detailCell);
 
                 notesTable.append(row);
