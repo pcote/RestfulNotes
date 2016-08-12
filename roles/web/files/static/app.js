@@ -116,7 +116,38 @@ $(function(){
 
         $.ajax(req);
     };
-    
+
 
     $("#btnAddNote").click(addNoteClick);
+
+
+    //////////////////// CHANGING EXISTING RECORDS SECTION ///////////////////
+    var okChangeClick = function(evt){
+        var successCB = function(){
+            refreshNotesView();
+            $("#changeModal").modal("hide");
+        }
+
+        var headerArgs = {
+            "Content-type": "application/json"
+        };
+
+        var jsonArgs = {
+            id: $("#tfHiddenId").val(),
+            title: $("#tfTitleChange").val(),
+            detail: $("#tfDetailChange").val()
+        };
+
+        var req = {
+            url: "/changenote",
+            method: "put",
+            headers: headerArgs,
+            data: JSON.stringify(jsonArgs),
+            success: successCB
+        };
+
+        $.ajax(req);
+    };
+
+    $("#okChangeButton").click(okChangeClick);
 });
