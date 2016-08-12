@@ -15,7 +15,18 @@ $(function(){
                 };
 
                 var clickHandler = function(evt){
-                    alert("delete click for: " + id);
+
+                    var successfulDeletion = function(){
+                        $.ajax(req);
+                    };
+
+                    var deleteReq = {
+                        url: "/deletenote/" + id,
+                        method: "delete",
+                        success: successfulDeletion
+                    };
+
+                    $.ajax(deleteReq);
                 };
 
                 var buttonOb = $("<button></button>", buttonAttrs);
