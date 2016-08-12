@@ -4,8 +4,11 @@ from sqlalchemy.orm import sessionmaker
 from configparser import ConfigParser
 from datetime import datetime
 
+
+dir_path = __file__.rsplit("/", maxsplit=1)[0]
+config_file_name = "{}/{}".format(dir_path, "config.ini")
 parser = ConfigParser()
-parser.read("config.ini")
+parser.read(config_file_name)
 model_config = parser["model"]
 user = model_config.get("user")
 pw = model_config.get("password")
@@ -59,6 +62,7 @@ def get_notes():
     return [dict(id=note.id, title=note.title, detail=note.detail, last_updated=note.last_updated)
             for note in notes]
 
+Base.metadata.create_all(eng)
 
 if __name__ == '__main__':
     Base.metadata.create_all(eng)

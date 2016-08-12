@@ -14,10 +14,11 @@
 
 - name: Bring over the mysqloverrides file
   copy:
-    src: mysqloverrides.cnf
-    dest: /etc/mysql/conf.d/mysqloverrides.cnf
+    src: web.cnf
+    dest: /etc/mysql/conf.d/web.cnf
     owner: root
     group: root
+  notify: restart mysql
 
 
 - name: Set up the root user for mysql
@@ -26,19 +27,21 @@
     password: rootpassword
   ignore_errors: yes
 
+
+- name: Create the notesdb database
+  mysql_db:
+    name: notesdb
+    login_user: root
+    login_password: rootpassword
+    state: present
+
+
 - name: Set up the mysql regular user
   mysql_user:
     name: vagrant
     host: "192.168.33.10"
     password: mypassword
-    priv: "*.*:ALL"
+    priv: "notesdb.*:ALL"
     state: present
     login_user: root
     login_password: rootpassword
-
-- name: Create the database
-  mysql_db:
-    login_user: root
-    login_password: rootpassword
-    name: notesdb
-    state: present

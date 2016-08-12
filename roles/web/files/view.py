@@ -1,6 +1,8 @@
 from flask import Flask, redirect, request, jsonify
 import model
 
+
+
 app = Flask(__name__)
 
 @app.route("/")

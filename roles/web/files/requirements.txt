@@ -3,3 +3,4 @@ requests
 ipython
 sqlalchemy
 uwsgi
+pymysql
