@@ -12,7 +12,26 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
+            <form>
+                <table>
+                    <tr>
+                        <td><b><u>Title: </u></b></td>
+                        <td><input id="tfTitle" class="input input-lg" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td><b><u>Detail: </u></b></td>
+                        <td><input id="tfDetail" class="input input-lg" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button id="btnAddNote" class="btn btn-primary">Add Note</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-lg-6">
             <table id="notesTable" class="table">
             </table>
         </div>

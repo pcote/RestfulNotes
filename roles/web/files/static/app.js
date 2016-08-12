@@ -68,4 +68,28 @@ $(function(){
     };
 
     refreshNotesView();
+
+    /////////////////// ADDING NEW RECORDS SECTION/////////////////////
+    var addNoteClick = function(evt){
+        var jsonArgs = {
+            title: $("#tfTitle").val(),
+            detail: $("#tfDetail").val()
+        };
+
+        headers = {
+            "Content-type": "application/json"
+        };
+
+        var req = {
+            url: "/addnote",
+            method: "post",
+            headers: headers,
+            success: refreshNotesView,
+            data: JSON.stringify(jsonArgs)
+        };
+
+        $.ajax(req);
+    };
+
+    $("#btnAddNote").click(addNoteClick);
 });
