@@ -6,7 +6,7 @@ $(function(){
             console.log(notes);
             var notesTable = $("#notesTable");
             notesTable.empty();
-            var headerString = "<tr><th>&nbsp;</th><th>id</th><th>title</th><th>detail</th>";
+            var headerString = "<tr><th>&nbsp;</th><th>id</th><th>title</th><th>detail</th><th>&nbsp;</th></tr>";
             notesTable.append($(headerString));
 
             var makeButton = function(id){
@@ -35,6 +35,27 @@ $(function(){
                 return buttonOb;
             };
 
+            var makeChangeButton = function(id, title, detail){
+
+
+
+                var changeButtonClick = function(evt){
+                    $("#tfTitleChange").val(title);
+                    $("#tfDetailChange").val(detail);
+                    $("#tfHiddenId").val(id)
+                    $("#changeModal").modal();
+                };
+
+                var buttonAttrs = {
+                    "class": "btn btn-primary"
+                };
+
+                var changeButton = $("<button></button>", buttonAttrs)
+                        .html("change")
+                        .click(changeButtonClick);
+                return changeButton;
+            };
+
             var addRec = function(rec){
                 var row = $("<tr></tr>");
 
@@ -51,6 +72,11 @@ $(function(){
 
                 var detailCell = $("<td></td>").html(rec.detail);
                 row.append(detailCell);
+
+                var changeButtonCell = $("<td></td>");
+                var btn = makeChangeButton(rec.id, rec.title, rec.detail);
+                changeButtonCell.append(btn);
+                row.append(changeButtonCell);
 
                 notesTable.append(row);
             };
@@ -90,6 +116,7 @@ $(function(){
 
         $.ajax(req);
     };
+    
 
     $("#btnAddNote").click(addNoteClick);
 });

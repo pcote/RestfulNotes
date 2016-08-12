@@ -37,6 +37,41 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="changeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Change Record</div>
+            <div class="modal-body">
+                <form>
+                    <table>
+                        <tr>
+                            <td>
+                                <b><u>Title: </u></b>
+                            </td>
+                            <td>
+                                <input id="tfTitleChange" type="input" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b><u>Detail: </u></b>
+                            </td>
+                            <td>
+                                <input id="tfDetailChange" type="input" />
+                                <input id="tfHiddenId" type="hidden" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-lg btn-primary">Cancel</button>
+                <button id="okChangeButton" class="btn btn-lg btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
