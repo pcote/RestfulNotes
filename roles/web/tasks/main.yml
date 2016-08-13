@@ -14,11 +14,13 @@
     - python3-pip
     - mysql-client-5.5
 
+
 - name: Send in the requirements.txt file.
   copy:
     src: requirements.txt
     dest: /tmp/requirements.txt
   notify: install pip packages
+
 
 - name: Setup folders
   file:
@@ -32,6 +34,7 @@
     - "/var/log/{{appname}}"
     - "/var/www/{{appname}}"
 
+
 - name: Copy over core application files.
   copy:
     src: "{{item}}"
@@ -42,7 +45,16 @@
   with_items:
     - view.py
     - model.py
-    - config.ini
+  notify: "restart {{appname}}"
+
+
+- name: Bring in the templated config file
+  template:
+    src: config.ini.template
+    dest: "/var/app/{{appname}}/config.ini"
+    owner: www-data
+    group: www-data
+    mode: 0664
   notify: "restart {{appname}}"
 
 
@@ -53,6 +65,7 @@
     mode: 0664
     owner: www-data
     group: www-data
+
 
 - name: copy over nginx template
   template:

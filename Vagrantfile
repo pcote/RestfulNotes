@@ -7,6 +7,10 @@ Vagrant.configure(2) do |config|
     web.vm.network "private_network", ip: "192.168.33.10"
     web.vm.provision "ansible" do |ansible|
       ansible.playbook = "web.yml"
+      ansible.extra_vars = {
+        rootpassword: "rootpassword",
+        userpassword: "mypassword"
+      }
     end
   end
 
@@ -16,6 +20,11 @@ Vagrant.configure(2) do |config|
     db.vm.synced_folder ".", "/vagrant_data"
     db.vm.provision "ansible" do |ansible|
         ansible.playbook = "db.yml"
+
+        ansible.extra_vars = {
+          rootpassword: "rootpassword",
+          userpassword: "mypassword"
+        }
     end
   end
   # config.vm.box_check_update = false

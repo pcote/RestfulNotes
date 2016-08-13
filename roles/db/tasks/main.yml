@@ -24,7 +24,7 @@
 - name: Set up the root user for mysql
   mysql_user:
     name: root
-    password: rootpassword
+    password: "{{rootpassword}}"
   ignore_errors: yes
 
 
@@ -32,7 +32,7 @@
   mysql_db:
     name: notesdb
     login_user: root
-    login_password: rootpassword
+    login_password: "{{rootpassword}}"
     state: present
 
 
@@ -40,8 +40,8 @@
   mysql_user:
     name: vagrant
     host: "192.168.33.10"
-    password: mypassword
+    password: "{{userpassword}}"
     priv: "notesdb.*:ALL"
     state: present
     login_user: root
-    login_password: rootpassword
+    login_password: "{{rootpassword}}"
