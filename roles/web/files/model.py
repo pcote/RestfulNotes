@@ -1,3 +1,8 @@
+"""
+model.py
+
+Persistence module for CRUD operations concerning notes.
+"""
 from sqlalchemy import create_engine, Column, Integer, Text, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -22,6 +27,9 @@ Session = sessionmaker(bind=eng)
 
 
 class Note(Base):
+    """
+    ORM class mapping for notes.
+    """
     __tablename__ = "notes"
     id = Column(Integer, autoincrement=True, primary_key=True)
     title = Column(Text, nullable=False)
@@ -30,6 +38,12 @@ class Note(Base):
 
 
 def add_note(title, detail):
+    """
+    Adds new note to the datastore.
+    :param title: Title of the note.
+    :param detail: Body of the note with detailed info.
+    :return: Generic okay message string for adding the note.
+    """
     sess = Session()
     new_note = Note(title=title, detail=detail, last_updated=datetime.now())
     sess.add(new_note)
@@ -38,6 +52,11 @@ def add_note(title, detail):
 
 
 def delete_note(note_id):
+    """
+    Remove a note from the data store.
+    :param note_id: key id of the note to be deleted.
+    :return: Generic okay message string for the deletion
+    """
     sess = Session()
     note = sess.query(Note).filter_by(id=note_id).one()
     sess.delete(note)
@@ -46,6 +65,13 @@ def delete_note(note_id):
 
 
 def change_note(note_id, title, detail):
+    """
+    Store changes to some specific note to the data store.
+    :param note_id: key id of the note.
+    :param title: Title of the note
+    :param detail: Detail info in the note.
+    :return: A generic okay message string for this change.
+    """
     sess = Session()
     note = sess.query(Note).filter_by(id=note_id).one()
     note.title = title
@@ -57,15 +83,18 @@ def change_note(note_id, title, detail):
 
 
 def get_notes():
+    """
+    Get a list of all the note records.
+    :return: a list of dictionaries each of which represents a note.
+    """
     sess = Session()
     notes = sess.query(Note).all()
     return [dict(id=note.id, title=note.title, detail=note.detail, last_updated=note.last_updated)
             for note in notes]
 
+
 Base.metadata.create_all(eng)
 
 if __name__ == '__main__':
     Base.metadata.create_all(eng)
-    #add_note("Chores", "Take care of dishes and trash today.")
-    #change_note(4, "Chores", "Take care of dishes, trash, and watering plants")
     print(get_notes())
