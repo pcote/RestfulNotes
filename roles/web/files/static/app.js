@@ -2,14 +2,8 @@ $(function(){
     var refreshNotesView = function(){
 
         var successCB = function(res){
-            var notes = res.notes;
-            console.log(notes);
-            var notesTable = $("#notesTable");
-            notesTable.empty();
-            var headerString = "<tr><th>&nbsp;</th><th>id</th><th>title</th><th>detail</th><th>&nbsp;</th></tr>";
-            notesTable.append($(headerString));
 
-            var makeButton = function(id){
+            var makeDeleteButton = function(id){
                 var buttonAttrs = {
                     "class": "btn btn-danger"
                 };
@@ -37,8 +31,6 @@ $(function(){
 
             var makeChangeButton = function(id, title, detail){
 
-
-
                 var changeButtonClick = function(evt){
                     $("#tfTitleChange").val(title);
                     $("#tfDetailChange").val(detail);
@@ -60,7 +52,7 @@ $(function(){
                 var row = $("<tr></tr>");
 
                 var deleteCell = $("<td></td>");
-                var buttonObj = makeButton(rec.id);
+                var buttonObj = makeDeleteButton(rec.id);
                 deleteCell.append(buttonObj);
                 row.append(deleteCell);
 
@@ -81,6 +73,11 @@ $(function(){
                 notesTable.append(row);
             };
 
+            var notes = res.notes;
+            var notesTable = $("#notesTable");
+            notesTable.empty();
+            var headerString = "<tr><th>&nbsp;</th><th>id</th><th>title</th><th>detail</th><th>&nbsp;</th></tr>";
+            notesTable.append($(headerString));
             notes.forEach(addRec);
         };
 
