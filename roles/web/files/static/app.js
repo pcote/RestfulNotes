@@ -49,28 +49,24 @@ $(function(){
             };
 
             var addRec = function(rec){
-                var row = $("<tr></tr>");
-
-                var deleteCell = $("<td></td>");
                 var buttonObj = makeDeleteButton(rec.id);
-                deleteCell.append(buttonObj);
-                row.append(deleteCell);
-
-                var idCell = $("<td></td>").html(rec.id);
-                row.append(idCell);
-
-                var titleCell = $("<td></td>").html(rec.title);
-                row.append(titleCell);
-
-                var detailCell = $("<td></td>").html(rec.detail);
-                row.append(detailCell);
-
-                var changeButtonCell = $("<td></td>");
                 var btn = makeChangeButton(rec.id, rec.title, rec.detail);
-                changeButtonCell.append(btn);
-                row.append(changeButtonCell);
 
-                notesTable.append(row);
+                var templData = {
+                    id: rec.id,
+                    title: rec.title,
+                    detail: rec.detail
+                };
+
+                var templText = $("#notesRowTempl").html();
+                var templ = Handlebars.compile(templText);
+                var result = templ(templData);
+                var resultDomRow = $(result);
+                resultDomRow.find(".deleteButtonCell").append(buttonObj);
+                resultDomRow.find(".changeButtonCell").append(btn);
+
+                // notesTable.append(row);
+                notesTable.append(resultDomRow);
             };
 
             var notes = res.notes;
