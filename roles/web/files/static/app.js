@@ -10,17 +10,13 @@ $(function(){
 
                 var clickHandler = function(evt){
 
-                    var successfulDeletion = function(){
-                        $.ajax(req);
-                    };
-
                     var deleteReq = {
                         url: "/deletenote/" + id,
-                        method: "delete",
-                        success: successfulDeletion
+                        method: "delete"
                     };
 
-                    $.ajax(deleteReq);
+                    var promise = $.ajax(deleteReq);
+                    promise.then(refreshNotesView);
                 };
 
                 var buttonOb = $("<button></button>", buttonAttrs);
@@ -79,11 +75,11 @@ $(function(){
 
         var req = {
             url: "/notes",
-            method: "get",
-            success: successCB
+            method: "get"
         };
 
-        $.ajax(req);
+        var promise = $.ajax(req);
+        promise.then(successCB);
     };
 
     refreshNotesView();
@@ -103,11 +99,11 @@ $(function(){
             url: "/addnote",
             method: "post",
             headers: headers,
-            success: refreshNotesView,
             data: JSON.stringify(jsonArgs)
         };
 
-        $.ajax(req);
+        var promise = $.ajax(req);
+        promise.then(refreshNotesView);
     };
 
 
@@ -135,11 +131,11 @@ $(function(){
             url: "/changenote",
             method: "put",
             headers: headerArgs,
-            data: JSON.stringify(jsonArgs),
-            success: successCB
+            data: JSON.stringify(jsonArgs)
         };
 
-        $.ajax(req);
+        var promise = $.ajax(req);
+        promise.then(successCB);
     };
 
     $("#okChangeButton").click(okChangeClick);
