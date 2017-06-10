@@ -1,7 +1,7 @@
 ---
 - name: install pip packages
   pip:
-    executable: pip3
+    executable: pip3.4
     requirements: /tmp/requirements.txt
 
 - name: restart nginx

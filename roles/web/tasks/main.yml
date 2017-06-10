@@ -4,6 +4,9 @@
     update_cache: yes
     cache_valid_time: 14400
 
+- name: set up the pip installation via the shell
+  shell: curl https://bootstrap.pypa.io/get-pip.py | sudo python3
+  ignore_errors: yes
 
 - name: Install core apt packages (nginx, python3-pip)
   apt:
