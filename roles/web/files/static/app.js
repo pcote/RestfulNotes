@@ -1,4 +1,30 @@
 $(function(){
+
+    var makeRecRow = function(id, title, detail){
+        var row = document.createElement("tr");
+
+        var deleteButtonCell = document.createElement("td");
+        deleteButtonCell.className = "deleteButtonCell";
+
+        var idCell = document.createElement("td");
+        var titleCell = document.createElement("td");
+        var detailCell = document.createElement("td");
+        idCell.innerHTML = id;
+        titleCell.innerHTML = title;
+        detailCell.innerHTML = detail;
+
+        var changeButtonCell = document.createElement("td");
+        changeButtonCell.className = "changeButtonCell";
+
+        row.appendChild(deleteButtonCell);
+        row.appendChild(idCell);
+        row.appendChild(titleCell);
+        row.appendChild(detailCell);
+        row.appendChild(changeButtonCell);
+
+        return row;
+    };
+
     var refreshNotesView = function(){
 
         var successCB = function(res){
@@ -54,10 +80,9 @@ $(function(){
                     detail: rec.detail
                 };
 
-                var rowTemplText = $("#notesRowTempl").html();
-                var rowTemplate = Handlebars.compile(rowTemplText);
-                var renderedRowText = rowTemplate(rowData);
-                var renderedRowDom = $(renderedRowText);
+                var renderedRowDom = makeRecRow(rec.id, rec.title, rec.detail);
+                renderedRowDom = $(renderedRowDom);
+
                 renderedRowDom.find(".deleteButtonCell").append(deleteButton);
                 renderedRowDom.find(".changeButtonCell").append(changeButton);
 
@@ -140,3 +165,4 @@ $(function(){
 
     $("#okChangeButton").click(okChangeClick);
 });
+
