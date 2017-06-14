@@ -1,25 +1,30 @@
 $(function(){
 
+    var createElement = function(elemName){
+        return document.createElement(elemName);
+    };
+
     var makeRecRow = function(id, title, detail){
-        var row = document.createElement("tr");
+        var row = createElement("tr");
 
-        var deleteButtonCell = document.createElement("td");
+        var deleteButtonCell = createElement("td");
         deleteButtonCell.className = "deleteButtonCell";
-
-        var idCell = document.createElement("td");
-        var titleCell = document.createElement("td");
-        var detailCell = document.createElement("td");
-        idCell.innerHTML = id;
-        titleCell.innerHTML = title;
-        detailCell.innerHTML = detail;
-
-        var changeButtonCell = document.createElement("td");
-        changeButtonCell.className = "changeButtonCell";
-
         row.appendChild(deleteButtonCell);
+
+        var idCell = createElement("td");
+        idCell.innerHTML = id;
         row.appendChild(idCell);
+
+        var titleCell = createElement("td");
+        titleCell.innerHTML = title;
         row.appendChild(titleCell);
+
+        var detailCell = createElement("td");
+        detailCell.innerHTML = detail;
         row.appendChild(detailCell);
+
+        var changeButtonCell = createElement("td");
+        changeButtonCell.className = "changeButtonCell";
         row.appendChild(changeButtonCell);
 
         return row;
